@@ -48,7 +48,7 @@ namespace EmployeeDetails.Migrations
 
                     b.HasKey("DepartmentId");
 
-                    b.ToTable("tblDepartment");
+                    b.ToTable("tblDepartment", (string)null);
                 });
 
             modelBuilder.Entity("EmployeeDetails.Model.Employee", b =>
@@ -91,7 +91,7 @@ namespace EmployeeDetails.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("tblEmployee");
+                    b.ToTable("tblEmployee", (string)null);
                 });
 
             modelBuilder.Entity("EmployeeDetails.Model.Employee", b =>

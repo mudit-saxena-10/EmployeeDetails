@@ -1,5 +1,9 @@
 
+using AutoMapper;
+using DepartmentDetails.Repository.IRepository;
 using EmployeeDetails.Data;
+using EmployeeDetails.Repository;
+using EmployeeDetails.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeDetails
@@ -15,6 +19,11 @@ namespace EmployeeDetails
                 {
                     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionStrings"));
                 });
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            IMapper mapper = Mapping.RegisterMapping().CreateMapper();
+            builder.Services.AddSingleton(mapper); 
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

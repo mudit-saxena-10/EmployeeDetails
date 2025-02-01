@@ -4,6 +4,12 @@ namespace EmployeeDetails.Repository.IRepository
 {
     public interface IEmployeeRepository
     {
-        Employee GetEmployeeDetailsById(int id);
+        public Employee GetEmployeeDetailsById(int id);
+        public List<Employee> GetAllEmployeesDetail();
+
+        public Boolean CreateEmployee(Employee employee);
+        public Boolean UpdateEmployee(Employee employee);
+        public Boolean DeleteEmployee(int id);
+
     }
 }

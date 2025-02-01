@@ -18,6 +18,9 @@ namespace EmployeeDetails.Model
         public string EmployeeAddress { get; set; }
         [ForeignKey("Department")]
         public int DepartmentId { get; set;}
+        public DateTime CreationDate { get; set; }
+        public DateTime LastUpdateDate { get; set; }
+        public Boolean Status { get; set; } = true;
         public virtual Department Department { get; set; }
 
         

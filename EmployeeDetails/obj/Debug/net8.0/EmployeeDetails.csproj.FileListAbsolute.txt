@@ -168,3 +168,4 @@ C:\Users\Mudit Saxena\source\repos\EmployeeDetails\EmployeeDetails\bin\Debug\net
 C:\Users\Mudit Saxena\source\repos\EmployeeDetails\EmployeeDetails\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Mudit Saxena\source\repos\EmployeeDetails\EmployeeDetails\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\Mudit Saxena\source\repos\EmployeeDetails\EmployeeDetails\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\Mudit Saxena\source\repos\EmployeeDetails\EmployeeDetails\obj\Debug\net8.0\EmployeeDetails.sourcelink.json
