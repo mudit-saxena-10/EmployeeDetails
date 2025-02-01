@@ -42,9 +42,10 @@ namespace EmployeeDetails.Controllers
                 }
             }catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.InnerException.ToString());
+                result.Data = null;
                 result.ResponseCode = 500;
-                result.Comment= ex.Message;
+                result.Comment= ex.InnerException.ToString();
             }
             return result;
         }
@@ -57,9 +58,11 @@ namespace EmployeeDetails.Controllers
             {
                 if (id > 0)
                 {
-                    result.Data = _departmentRepository.GetDepartmentDetailsById(id);
-                    if(result.Data!= null)
+                    Department department= _departmentRepository.GetDepartmentDetailsById(id);
+                    
+                    if(department != null)
                     {
+                        result.Data = _mapper.Map<DepartmentDto>(department);
                         result.ResponseCode = 200;
                         result.Comment = "Department Data Pushed.";
                     }
@@ -80,9 +83,9 @@ namespace EmployeeDetails.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.InnerException.ToString());
                 result.ResponseCode = 500;
-                result.Comment = ex.Message;
+                result.Comment = ex.InnerException.ToString();
             }
             return result;
         }
@@ -95,31 +98,69 @@ namespace EmployeeDetails.Controllers
                 if(department != null)
                 {
                     Department departmentModel = _mapper.Map<Department>(department);   
-                    var data = _departmentRepository.CreateDepartment(departmentModel);
-                    result.Data= data;
+                    Boolean status = _departmentRepository.CreateDepartment(departmentModel);
+                    result.Data= status;
+                    if (status)
+                    {
+                        result.ResponseCode = 200;
+                        result.Comment = "Successfully Inserted Department.";
+                    }else
+                    {
+                        result.ResponseCode = 201;
+                        result.Comment = "UnSuccessfully Inserted Department.";
+                    }
+                }
+                else
+                {
+                    result.Data = null;
+                    result.ResponseCode = 201;
+                    result.Comment = "Invalid or No Department Received.";
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.InnerException.ToString());
+                result.Data = null;
                 result.ResponseCode = 500;
-                result.Comment = ex.Message;
+                result.Comment = ex.InnerException.ToString();
             }
             return result;
         }
         [HttpPut("UpdateDepartment")]
-        public ResponseDto UpdateDepartment(Department department)
+        public ResponseDto UpdateDepartment([FromBody]DepartmentWithId_Dto department)
         {
             ResponseDto result = new ResponseDto();
             try
             {
-
+                if (department != null)
+                {
+                    Department departmentModel = _mapper.Map<Department>(department);
+                    Boolean status = _departmentRepository.UpdateDepartment(departmentModel);
+                    result.Data = status;
+                    if (status)
+                    {
+                        result.ResponseCode = 200;
+                        result.Comment = "Successfully Updated Department.";
+                    }
+                    else
+                    {
+                        result.ResponseCode = 201;
+                        result.Comment = "UnSuccessfully Updated Department.";
+                    }
+                }
+                else
+                {
+                    result.Data = null;
+                    result.ResponseCode = 201;
+                    result.Comment = "Invalid or No Department Received.";
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.InnerException.ToString());
+                result.Data = null;
                 result.ResponseCode = 500;
-                result.Comment = ex.Message;
+                result.Comment = ex.InnerException.ToString();
             }
             return result;
         }
@@ -129,13 +170,34 @@ namespace EmployeeDetails.Controllers
             ResponseDto result = new ResponseDto();
             try
             {
-
+                if (id > 0)
+                {
+                    Boolean status = _departmentRepository.DeleteDepartment(id);
+                    result.Data = status;
+                    if (status)
+                    {
+                        result.ResponseCode = 200;
+                        result.Comment = "Successfully Department Deleted.";
+                    }
+                    else
+                    {
+                        result.ResponseCode = 201;
+                        result.Comment = "UnSuccessfully Department Deleted.";
+                    }
+                }
+                else
+                {
+                    result.Data = null;
+                    result.ResponseCode = 201;
+                    result.Comment = "Received Invalid Data.";
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.InnerException.ToString());
+                result.Data = null;
                 result.ResponseCode = 500;
-                result.Comment = ex.Message;
+                result.Comment = ex.InnerException.ToString();
             }
             return result;
         }

@@ -28,8 +28,8 @@ namespace EmployeeDetails.Repository
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                result = false;
+                
+                throw;
             }
             return result;
         }
@@ -55,8 +55,8 @@ namespace EmployeeDetails.Repository
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                result = false;
+                
+                throw;
             }
             return result;
         }
@@ -70,8 +70,8 @@ namespace EmployeeDetails.Repository
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                departments = null;
+                
+                throw;
             }
             return departments;
         }
@@ -90,8 +90,8 @@ namespace EmployeeDetails.Repository
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                department = null;
+                
+                throw;
             }
             return department;
         }
@@ -103,16 +103,24 @@ namespace EmployeeDetails.Repository
             {
                 if (department != null && department.DepartmentId>0)
                 {
-                    _context.tblDepartment.Update(department);
-                    _context.SaveChanges();
+                    Department departmentModel = _context.tblDepartment.FirstOrDefault(x => x.DepartmentId == department.DepartmentId);
+                    if(departmentModel!= null)
+                    {
+                        departmentModel.DepartmentName = department.DepartmentName;
+                        departmentModel.LastUpdateDate = DateTime.Now;
+                        departmentModel.Description = department.Description;
+                        _context.SaveChanges(); 
+                    }
+                    else
+                        result = false;
                 }
                 else
                     result=false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                result= false;  
+                
+                throw;
             }
             return result;
         }

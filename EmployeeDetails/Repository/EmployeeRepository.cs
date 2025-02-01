@@ -26,8 +26,8 @@ namespace EmployeeDetails.Repository
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
-                result = false;
+                
+                throw;
             }
             return result;
         }
@@ -53,7 +53,8 @@ namespace EmployeeDetails.Repository
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                
+                throw;
             }
             return result;
         }
@@ -67,8 +68,8 @@ namespace EmployeeDetails.Repository
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
-                employees = null;
+                
+                throw;
             }
             return employees;
         }
@@ -89,8 +90,8 @@ namespace EmployeeDetails.Repository
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
-                employee = null;
+                
+                throw;
             }
 
             return employee;
@@ -103,15 +104,28 @@ namespace EmployeeDetails.Repository
             {
                 if (employee != null && employee.Id > 0)
                 {
-                    _context.tblEmployee.Update(employee);
-                    _context.SaveChanges();
+                    Employee employeeModel = _context.tblEmployee.FirstOrDefault(x => x.Id == employee.Id); 
+                    if (employeeModel != null)
+                    {
+                        employeeModel.EmployeePhone= employee.EmployeePhone;
+                        employeeModel.EmployeeName= employee.EmployeeName;
+                        employeeModel.EmployeeAddress= employee.EmployeeAddress;
+                        employeeModel.EmployeeAge= employee.EmployeeAge;
+                        employeeModel.LastUpdateDate= DateTime.Now;
+                        employeeModel.DepartmentId= employee.DepartmentId;
+                        employeeModel.EmployeeId= employee.EmployeeId;
+                        _context.SaveChanges();
+                    }
+                    else
+                        result = false;
                 }
                 else
                     result = false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                
+                throw;
             }
             return result;
         }
