@@ -8,13 +8,13 @@ namespace EmployeeDetails.Model
         [Key]
         public int Id { get; set; }
         [Required]
-        public int EmployeeId { get; set; }
+        public string EmployeeId { get; set; }
         [Required]
         public string EmployeeName { get; set; }  
         
         public int EmployeeAge { get; set; } = 0;
         [Required]
-        public int EmployeePhone { get; set; }
+        public long EmployeePhone { get; set; }
         public string EmployeeAddress { get; set; }
         [ForeignKey("Department")]
         public int DepartmentId { get; set;}
