@@ -4,6 +4,7 @@ using EmployeeDetails.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeDetails.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250319044605_Add System Config Table")]
+    partial class AddSystemConfigTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,17 +52,6 @@ namespace EmployeeDetails.Migrations
                     b.HasKey("DepartmentId");
 
                     b.ToTable("tblDepartment");
-
-                    b.HasData(
-                        new
-                        {
-                            DepartmentId = 1,
-                            CreationDate = new DateTime(2025, 3, 19, 12, 22, 50, 78, DateTimeKind.Local).AddTicks(1817),
-                            DepartmentName = "Default_Department",
-                            Description = "Unassigned Department or default department",
-                            LastUpdateDate = new DateTime(2025, 3, 19, 12, 22, 50, 78, DateTimeKind.Local).AddTicks(1817),
-                            Status = true
-                        });
                 });
 
             modelBuilder.Entity("EmployeeDetails.Model.Employee", b =>
@@ -123,14 +115,6 @@ namespace EmployeeDetails.Migrations
                     b.HasKey("id");
 
                     b.ToTable("tblSystemConfig");
-
-                    b.HasData(
-                        new
-                        {
-                            id = 1,
-                            DefaultDepartment = true,
-                            EmployeeDeletion = false
-                        });
                 });
 
             modelBuilder.Entity("EmployeeDetails.Model.Employee", b =>
